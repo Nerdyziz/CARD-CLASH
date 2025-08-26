@@ -1,0 +1,39 @@
+/* App.css */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Dice animation */
+.dice-container {
+  perspective: 1000px;
+}
+
+.dice {
+  transition: transform 1.5s ease-out;
+}
+
+.dice-container.rolling .dice {
+  animation: diceRoll 1.5s ease-out;
+}
+
+@keyframes diceRoll {
+  0% {
+    transform: rotateX(0) rotateY(0);
+  }
+  25% {
+    transform: rotateX(360deg) rotateY(180deg);
+  }
+  50% {
+    transform: rotateX(720deg) rotateY(360deg);
+  }
+  75% {
+    transform: rotateX(1080deg) rotateY(540deg);
+  }
+  100% {
+    transform: rotateX(1440deg) rotateY(720deg);
+  }
+}
+
+
+

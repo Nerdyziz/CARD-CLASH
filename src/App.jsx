@@ -1,5 +1,8 @@
-import { useState, useEffect, useRef, use } from "react";
+import { useState, useEffect, useRef} from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
+
 
 function App() {
   const [p1Cards, setP1Cards] = useState(Array(6).fill(false));
@@ -41,17 +44,19 @@ function App() {
     if (p1Score === 0) {
       win.current.currentTime = 0;
       win.current.play();
-      setTimeout(() => {
-        alert("Player 1 is the Winner");
-      }, 500);
+       toast.success("🎉 Player 1 is the Winner!", {
+    position: "top-center",
+    autoClose: 3000,
+  });
 
       resetGame();
     } else if (p2Score === 0) {
       win.current.currentTime = 0;
       win.current.play();
-      setTimeout(() => {
-        alert("Player 2 is the Winner");
-      }, 500);
+       toast.success("🎉 Player 2 is the Winner!", {
+    position: "top-center",
+    autoClose: 3000,
+  });
 
       resetGame();
     }
@@ -154,6 +159,7 @@ function App() {
   };
 
   return (
+    <>
     <div className="min-h-screen bg-gradient-to-b from-gray-800 to-gray-900 text-white overflow-hidden">
       {/* Header with game title */}
       <div className="text-center py-6 bg-gradient-to-r from-yellow-600 to-yellow-800 shadow-xl relative">
@@ -339,6 +345,8 @@ function App() {
         </p>
       </div>
     </div>
+    <ToastContainer />
+    </>
   );
 }
 

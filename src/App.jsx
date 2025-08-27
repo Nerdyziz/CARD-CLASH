@@ -12,20 +12,19 @@ function App() {
   const [p2Score, setP2Score] = useState(21);
   const [move1, setMove1] = useState(true);
   const [move2, setMove2] = useState(false);
-  const dice = useRef(new Audio("public/rolling-dice-2-102706.mp3"));
-  const card = useRef(new Audio("public/card-sounds-35956.mp3"));
-  const click = useRef(new Audio("public/button-click-289742.mp3"));
-  const win = useRef(new Audio("public/success-1-6297.mp3"));
-  const background = useRef(new Audio("public/happy-relaxing-loop-275487.mp3"));
+  const dice = useRef(new Audio("./rolling-dice-2-102706.mp3"));
+  const card = useRef(new Audio("./card-sounds-35956.mp3"));
+  const click = useRef(new Audio("./button-click-289742.mp3"));
+  const win = useRef(new Audio("./success-1-6297.mp3"));
+  const background = useRef(new Audio("./happy-relaxing-loop-275487.mp3"));
 
   useEffect(() => {
     background.current.volume = 0.1;
-  background.current.loop = true;
-  background.current.play();
+    background.current.loop = true;
+    background.current.play();
   });
 
-  
-    const buttonClick = () => {
+  const buttonClick = () => {
     click.current.currentTime = 0;
     click.current.play();
   };
@@ -45,14 +44,13 @@ function App() {
       setTimeout(() => {
         alert("Player 1 is the Winner");
       }, 500);
-      
 
       resetGame();
     } else if (p2Score === 0) {
       win.current.currentTime = 0;
       win.current.play();
       setTimeout(() => {
-       alert("Player 2 is the Winner");
+        alert("Player 2 is the Winner");
       }, 500);
 
       resetGame();

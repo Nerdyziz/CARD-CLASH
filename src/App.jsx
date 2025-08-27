@@ -19,7 +19,7 @@ function App() {
   const background = useRef(new Audio("./happy-relaxing-loop-275487.mp3"));
 
   useEffect(() => {
-    background.current.volume = 0.1;
+    background.current.volume = 0.5;
     background.current.loop = true;
     background.current.play();
   });

@@ -15,7 +15,7 @@ function App() {
   const [p1Pev, setP1Pev] = useState(Array(6).fill(false));
   const [p2Pev, setP2Pev] = useState(Array(6).fill(false));
   const [diceValue, setDiceValue] = useState("PLAY");
-  const [copyVal, setCopyVal] = useState("");
+  const [copyVal, setCopyVal] = useState(-1);
   const [diceRolling, setDiceRolling] = useState(false);
   const [currentPlayer, setCurrentPlayer] = useState(1);
   const [p1Score, setP1Score] = useState(21);
@@ -83,15 +83,16 @@ function App() {
     const newP2 = [...p2Cards];
     const newP1Pev = [...p1Pev];
     const newP2Pev = [...p2Pev];
-
+    let newCopyVal = copyVal;
     if (!newP1[index]) {
       // Moving card forward
-      if (copyVal - (index + 1) >= 0) {
+
+      if (newCopyVal - (index + 1) >= 0) {
         newP1Pev[index] = newP1[index];
         newP1[index] = true;
 
         setP1Score((prev) => prev - (index + 1));
-        setCopyVal((prev) => prev - (index + 1));
+        setCopyVal(newCopyVal - (index + 1));
 
         // Handle collision
         if (newP2[index]) {
@@ -99,6 +100,12 @@ function App() {
           newP2[index] = false;
           setP2Score((prev) => prev + (index + 1));
         }
+        setTimeout(() => {
+          if (newCopyVal - (index + 1) === 0) {
+            setMove1(false);
+            setMove2(true);
+          }
+        }, 100);
       } else {
         return; // invalid move
       }
@@ -111,21 +118,14 @@ function App() {
         newP2Pev[index] = false;
       }
       setP1Score((prev) => prev + (index + 1));
-      setCopyVal((prev) => prev + (index + 1));
+      setCopyVal(newCopyVal + (index + 1));
     }
-
     setP1Cards(newP1);
     setP2Cards(newP2);
     setP1Pev(newP1Pev);
     setP2Pev(newP2Pev);
 
     // Switch turn if needed
-    setTimeout(() => {
-      if (copyVal - (index + 1) === 0) {
-        setMove1(false);
-        setMove2(true);
-      }
-    }, 100);
   };
 
   const toggleP2Card = (index) => {
@@ -133,19 +133,25 @@ function App() {
     const newP1 = [...p1Cards];
     const newP1Pev = [...p1Pev];
     const newP2Pev = [...p2Pev];
-
+    let newCopyVal = copyVal;
     if (!newP2[index]) {
-      if (copyVal - (index + 1) >= 0) {
+      if (newCopyVal - (index + 1) >= 0) {
         newP2Pev[index] = newP2[index];
         newP2[index] = true;
         setP2Score((prev) => prev - (index + 1));
-        setCopyVal((prev) => prev - (index + 1));
+        setCopyVal(newCopyVal - (index + 1));
 
         if (newP1[index]) {
           newP1Pev[index] = newP1[index];
           newP1[index] = false;
           setP1Score((prev) => prev + (index + 1));
         }
+        setTimeout(() => {
+          if (newCopyVal - (index + 1) === 0) {
+            setMove2(false);
+            setMove1(true);
+          }
+        }, 100);
       } else {
         return; // invalid move
       }
@@ -157,20 +163,13 @@ function App() {
         newP1Pev[index] = false;
       }
       setP2Score((prev) => prev + (index + 1));
-      setCopyVal((prev) => prev + (index + 1));
+      setCopyVal(newCopyVal + (index + 1));
     }
 
     setP2Cards(newP2);
     setP1Cards(newP1);
     setP1Pev(newP1Pev);
     setP2Pev(newP2Pev);
-
-    setTimeout(() => {
-      if (copyVal - (index + 1) === 0) {
-        setMove2(false);
-        setMove1(true);
-      }
-    }, 100);
   };
 
   const diceRoll = (player) => {

@@ -1,5 +1,4 @@
 import React from 'react'
-import PlayerCards from './PlayerCards';
 
 const GameArena = ({ 
   p1Cards, 
